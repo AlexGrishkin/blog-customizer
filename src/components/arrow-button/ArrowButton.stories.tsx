@@ -13,7 +13,11 @@ export const ArrowButtonStory: Story = {
 	render: () => {
 		return (
 			<>
-				<ArrowButton />
+				<ArrowButton
+					//добавили алерт чтобы тестить как как элемент выглядит и работает ли функция вызываемая событием
+					onClick={() => alert('Открыть / закрыть сайдбар')}
+					isOpen={false}
+				/>
 			</>
 		);
 	},
