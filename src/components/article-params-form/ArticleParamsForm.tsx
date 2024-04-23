@@ -31,6 +31,7 @@ type ArticleParamsFormProps = {
 
 export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 	const ref = useRef<HTMLFormElement | null>(null);
+	const arrowButtonRef = useRef<HTMLDivElement | null>(null);
 	const [open, setOpen] = useState(false);
 	const toggleForm = () => {
 		open === false ? setOpen(true) : setOpen(false);
@@ -45,7 +46,11 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 				target instanceof Node && // проверяем, что это `DOM`-элемент/
 				ref.current && //на всякий проверяем что ref не null
 				!ref.current.contains(target); // проверяем, что кликнули на элемент, который находится не внутри сайдбара
-			if (isOutsideClick) {
+			const isArrowButtonClick =
+				target instanceof Node &&
+				arrowButtonRef.current &&
+				arrowButtonRef.current.contains(target); //нужно чтобы потом проверить не кликнули ли мы на кнопке потому что она тоже вне сайдбара находится
+			if (isOutsideClick && !isArrowButtonClick) {
 				setOpen(false);
 			}
 		};
@@ -53,11 +58,11 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 		return () => {
 			document.removeEventListener('mousedown', closeAsideOutside);
 		};
-	}, [open, ref]);
+	}, [open, ref, arrowButtonRef]);
 
 	return (
 		<>
-			<ArrowButton onClick={toggleForm} isOpen={open} />
+			<ArrowButton ref={arrowButtonRef} onClick={toggleForm} isOpen={open} />
 			<aside
 				className={clsx(styles.container, { [styles.container_open]: open })}>
 				<form className={styles.form} ref={ref} onSubmit={props.applyButton}>
