@@ -4,6 +4,7 @@ import { Option } from './Option';
 
 import styles from './RadioGroup.module.scss';
 
+//Это у нас кнопки радиогруппы которыми мы выбираем шрифт
 type RadioGroupProps = {
 	name: string;
 	options: OptionType[];

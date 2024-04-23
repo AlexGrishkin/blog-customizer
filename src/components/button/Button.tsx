@@ -1,7 +1,7 @@
 import { Text } from 'components/text';
 
 import styles from './Button.module.scss';
-
+//Это у нас кнопки сбросить и применить
 export const Button = ({
 	title,
 	onClick,
